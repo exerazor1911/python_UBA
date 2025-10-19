@@ -1,23 +1,24 @@
-def es_legible(linea : str) -> bool:
-    if len(linea) < 5: return False
-
-    for byte in linea:
-        caracter = chr(byte)
-        if not caracter.isalnum() or not caracter == ' ' or not caracter == '_':
-            return False
-    
-    return True
+def es_legible(caracter : chr) -> bool:
+    if caracter.isalnum() or caracter == ' ' or caracter == '_':
+        return True
+    return False
 
 def listar_textos_de_archivo(nombre_archivo: str) -> list[str]:
-    cadena : bytes
+    palabra : list[chr] = ""
+    textos : list[str] = []
+
     with open(nombre_archivo, 'rb') as archivo:
-        cadena = archivo.read()
+        contenido : list[bytes] = archivo.read()
+        for item in contenido:
+            char : chr = chr(item)
+            if es_legible(char):
+                palabra = palabra + char
+            else:
+                if len(palabra) >= 5:
+                    textos.append(palabra)
+                palabra = ""
+
+    return textos
+        
     
-    for item in cadena:
-        caracter : chr = chr(item)
-
-
-#TODO: terminar, no se entiende muy bien que es lo que se quiere
-
-print(listar_textos_de_archivo('guia_8/listar_textos_de_archivo.mp3'))
-
+print(listar_textos_de_archivo('guia_8/test_strings.bin'))
