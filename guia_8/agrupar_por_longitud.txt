@@ -1,0 +1,3 @@
+este es un archivo que posee
+algunas lineas de texto
+y palabras con distintas longitudes
